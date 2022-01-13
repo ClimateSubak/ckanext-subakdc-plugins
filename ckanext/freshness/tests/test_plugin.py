@@ -47,7 +47,7 @@ To temporary patch the CKAN configuration for the duration of a test you can use
     def test_some_action():
         pass
 """
-import ckanext.subakdc_plugins.plugin as plugin
+import ckanext.freshness.plugin as plugin
 
 def test_plugin():
     pass
