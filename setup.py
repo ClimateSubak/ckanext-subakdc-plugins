@@ -84,7 +84,7 @@ setup(
     # pip to create the appropriate form of executable for the target platform.
     entry_points='''
         [ckan.plugins]
-        subakdc_plugins=ckanext.subakdc_plugins.plugin:SubakdcPluginsPlugin
+        freshness=ckanext.freshness.plugin:FreshnessPlugin
 
         [babel.extractors]
         ckan = ckan.lib.extract:extract_ckan

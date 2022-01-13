@@ -3,6 +3,9 @@
 # ckanext-subakdc-plugins
 Custom plugins for the Subak Data Catalogue
 
+## Plugins in this CKAN extension
+- **freshness** - Derives a freshness score (between 1 and 5) for each dataset based on the age of the last updated dataset resource
+
 ## Requirements
 None
 
@@ -16,7 +19,7 @@ To install ckanext-subakdc-plugins:
         pip install -r https://raw.githubusercontent.com/climatesubak/ckanext-subakdc-plugins/main/requirements.txt
     ```
 
-3. Add `subakdc-plugins` to `CKAN__PLUGINS` in your .env file
+3. Add the required plugins to `CKAN__PLUGINS` in your .env file, e.g `freshness`
 
 4. Rebuild and start the `ckan` container. E.g. using `make rebuild.ckan`
 
@@ -29,7 +32,7 @@ To install ckanext-subakdc-plugins for development:
 
 1. Clone this repo into the `/src` folder of the `docker-ckan` project
 
-2. Add `subakdc-plugins` to `CKAN__PLUGINS` in your .env file
+2. Add the required plugins to `CKAN__PLUGINS` in your .env file, e.g `freshness`
 
 3. Rebuild and start the `ckan` container. E.g. using `make rebuild.ckan`
 
