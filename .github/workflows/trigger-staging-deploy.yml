@@ -1,0 +1,18 @@
+name: Trigger staging deploy
+
+on:
+  push:
+    branches: [develop]
+  workflow_dispatch:
+
+jobs:
+  trigger:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run trigger
+        run: |
+          curl -X POST \
+          -H 'Accept: application/vnd.github.v3+json' \
+          https://api.github.com/repos/climatesubak/docker-ckan/dispatches \
+          -u subakci:${{ secrets.GH_PAT }} \
+          -d '{"event_type": "trigger-staging-deploy", "client_payload": {}}'
