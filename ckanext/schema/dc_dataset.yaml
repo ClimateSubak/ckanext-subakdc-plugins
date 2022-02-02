@@ -61,6 +61,7 @@ dataset_fields:
     help_text: Earliest date the dataset covers e.g. 2016-01-01.
     
   # Will be used to build a filter (e.g. by year)
+  # Assume not set if temporal_start is also empty, otherwise assume end = present
   - field_name: temporal_end
     label: End date
     required: false
@@ -74,24 +75,25 @@ dataset_fields:
     required: false
     preset: select
     choices:
-    - value: sub_second
-      label: Sub-second
-    - value: second
-      label: Second
-    - value: minute
-      label: Minute
-    - value: hour
-      label: Hour
-    - value: day
-      label: Day
-    - value: week
-      label: Week
-    - value: month
-      label: Month
-    - value: quarter
-      label: Quarter
     - value: year
       label: Year
+    - value: quarter
+      label: Quarter
+    - value: month
+      label: Month
+    - value: week
+      label: Week
+    - value: day
+      label: Day
+    - value: hour
+      label: Hour
+    - value: minute
+      label: Minute
+    - value: second
+      label: Second
+    - value: sub_second
+      label: Sub-second
+    
     display_property: dcat:temporalResolution
     help_text: For time-series data, please select the smallest resolution represented in your dataset. If your dataset resolution falls between the values given here, please select the closest resolution (e.g. for readings every 30 seconds select minute).
   
@@ -120,23 +122,30 @@ dataset_fields:
     help_text: Select the closest value that reflects the frequency with which the dataset is updated.
 
   # Will be used to build a filter
-  - field_name: iso_region
-    label: ISO region
+  - field_name: geo_region
+    label: Geographic region
     required: false
     preset: select
     choices:
-    - value: emea
-      label: EMEA
-    - value: apac
-      label: APAC
-    - value: americas
-      label: AMERICAS
     - value: world
-      label: WORLD
+      label: World
+    - value: africa
+      label: Africa
+    - value: americas
+      label: Americas
+    - value: antarctica
+      label: Antarctica
+    - value: asia
+      label: Asia
+    - value: europe
+      label: Europe
+    - value: oceania
+      label: Oceania
     display_property: dct:Location
-    help_text: Select the broad region that your dataset covers.
+    help_text: Select the broad region that most closely represents your dataset's geographic coverage.
 
   # Will be used to build a filter
+  # TODO Compile list of countries using ISO3166 standard
   # TODO create scheming_countries_choices helper (see: https://github.com/ckan/ckanext-scheming#choices_helper)
   - field_name: countries
     label: Countries
@@ -152,35 +161,37 @@ dataset_fields:
     required: false
     preset: select
     choices:
-    - value: 1m-grid
-      label: 1m grid
-    - value: 10m-grid
-      label: 10m grid
-    - value: 100m-grid
-      label: 100m grid
-    - value: 1km-grid
-      label: 1km grid
-    - value: 10km-grid
-      label: 10km grid
-    - value: 100km-grid
-      label: 100km grid
-    - value: device_asset
-      label: Device/Asset
-    - value: building/residence
-      label: Building/Residence
-    - value: street_postcode
-      label: Street/Postcode
-    - value: city_town
-      label: City/Town
-    - value: state_county
-      label: State/County
-    - value: country
-      label: Country
-    - value: continent_region
-      label: Continent/Region
     - value: global
       label: Global
-    help_text: Select the spatial resolution that most closely represents the samples or aggregations within your data.
+    - value: continent_region
+      label: Continent/Region
+    - value: country
+      label: Country
+    - value: state_county
+      label: State/County
+    - value: city_town
+      label: City/Town
+    - value: street_postcode
+      label: Street/Postcode
+    - value: building/residence
+      label: Building/Residence
+    - value: device_asset
+      label: Device/Asset
+
+    # These values are probably most useful for satellite data
+    - value: 100km-grid
+      label: 100km grid
+    - value: 10km-grid
+      label: 10km grid
+    - value: 1km-grid
+      label: 1km grid
+    - value: 100m-grid
+      label: 100m grid
+    - value: 10m-grid
+      label: 10m grid
+    - value: 1m-grid
+      label: 1m grid
+    help_text: For data with a spatial component, select the spatial resolution that most closely represents the samples or aggregations within your data.
 
   - field_name: license_id
     label: License
