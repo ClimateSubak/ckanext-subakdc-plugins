@@ -204,7 +204,7 @@ dataset_fields:
     label: Source
     required: false
     display_property: dcat:accessURL
-    form_snippet: link.html
+    form_snippet: text.html
     form_placeholder: http://example.com/project-url.html
     help_text: A link to a project website related to the dataset.
 
@@ -233,7 +233,7 @@ dataset_fields:
       - value: tools_and_applications
         label: Tools and Applications
       - value: publications
-        label: publications
+        label: Publications
       
     - field_name: title
       label: Title
@@ -243,7 +243,7 @@ dataset_fields:
     - field_name: url
       label: URL
       required: true
-      form_snippet: link.html
+      form_snippet: text.html
 
     - field_name: author
       label: Author
