@@ -119,4 +119,3 @@ class FreshnessPlugin(p.SingletonPlugin):
         Helper function to extract the freshness score from the package dict
         '''
         return {'freshness_score': get_freshness_score}
-
