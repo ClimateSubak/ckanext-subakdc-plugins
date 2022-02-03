@@ -6,13 +6,6 @@ about_url: https://github.com/ClimateSubak/ckanext-subakdc-plugins/tree/main/cka
 # Non-default CKAN fields are prefixed with `subak_` to avoid name/format conflicts with 
 # existing fields in the database and new ones that may be created due to harvest imports 
 dataset_fields:
-  # Dropdown list populated with CKAN organisations
-  - field_name: owner_org
-    label: Organization
-    required: true
-    preset: dataset_organization
-    display_property: dct:publisher
-
   - field_name: title
     label: Title
     required: true
@@ -27,6 +20,13 @@ dataset_fields:
     preset: dataset_slug
     display_property: dct:identifier
     form_placeholder: eg. uk-wholesale-electricity-prices
+    
+  # Dropdown list populated with CKAN organisations
+  - field_name: owner_org
+    label: Organization
+    required: true
+    preset: dataset_organization
+    display_property: dct:publisher
 
   # Will be used on the dataset list page if set
   - field_name: subak_overview
@@ -224,6 +224,7 @@ dataset_fields:
     required: false
     help_text: List any known tutorials, tools, applications or publications associated with this dataset.
     repeating_label: Application
+    form_blanks: 0
     repeating_subfields:
     - field_name: category
       label: Category
@@ -290,7 +291,7 @@ resource_fields:
     display_property: dct:format
 
   # Could be inferred if empty
-  - field_name: size
+  - field_name: subak_file_size
     label: File size
     required: false
     display_property: dct:byteSize
@@ -303,6 +304,7 @@ resource_fields:
     required: false
     help_text: If the data file contains tabular data, detail the column/field definitions here.
     repeating_label: Data field
+    form_blanks: 0
     repeating_subfields:
     - field_name: name
       label: Field name
