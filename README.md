@@ -6,6 +6,8 @@ Custom plugins for the Subak Data Catalogue
 ## Plugins in this CKAN extension
 - **freshness** - Derives a freshness score (between 1 and 5) for each dataset based on the age of the last updated dataset resource
 
+- **schema** - Customises the CKAN dataset and resource schema to enable useful filters and more information for searching datasets
+
 ## Requirements
 None
 
