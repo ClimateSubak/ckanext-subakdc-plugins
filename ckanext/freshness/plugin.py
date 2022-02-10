@@ -15,7 +15,7 @@ def freshness_score(last_modified_dts):
     newest = last_modified_dts[0]
     age = (datetime.now() - newest).days
 
-    score = 5 - math.ceil(age / 180)
+    score = 5 - math.floor(age / 180)
     if score < 1:
         score = 1
     
