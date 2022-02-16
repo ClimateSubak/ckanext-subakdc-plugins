@@ -1,5 +1,5 @@
 import ckan.plugins as p
 
 
-class QAPlugin(plugins.SingletonPlugin):
+class QAPlugin(p.SingletonPlugin):
     pass
