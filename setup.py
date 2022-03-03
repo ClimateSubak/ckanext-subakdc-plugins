@@ -86,6 +86,7 @@ setup(
         [ckan.plugins]
         freshness=ckanext.freshness.plugin:FreshnessPlugin
         schema=ckanext.schema.plugin:SchemaPlugin
+        search=ckanext.search.plugin:SearchPlugin
         userextras=ckanext.userextras.plugin:UserExtrasPlugin
 
         [babel.extractors]
