@@ -39,11 +39,6 @@ class IQaReport(ABC):
     
     @classmethod
     @abstractmethod
-    def run_qa_task(self):
-        pass
-    
-    @classmethod
-    @abstractmethod
     def get_qa_actions(self):
         pass
 
