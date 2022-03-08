@@ -2,12 +2,9 @@ import ckan.plugins as p
 import ckan.plugins.toolkit as tk
 from ckanext.report.interfaces import IReport
 
+from ckanext.qa import tasks, reports
 from ckanext.qa.cli import get_commands
 from ckanext.qa.qa import QaTaskRunner
-from ckanext.qa.qa_no_resources import QaNoResourcesTask, qa_no_resources_report_info
-
-tasks = [ QaNoResourcesTask ]
-reports = [ qa_no_resources_report_info ]
 
 class QAPlugin(p.SingletonPlugin, tk.DefaultDatasetForm):
     p.implements(p.IClick)
