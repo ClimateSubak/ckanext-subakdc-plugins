@@ -261,11 +261,12 @@ dataset_fields:
     display_property: prov:qualifiedPrimarySource
     help_text: List or table of sources used to created this dataset.
 
+  # TODO hide/disable this field in the update/create dataset form
   - field_name: subak_qa
     label: QA
     required: false
     preset: json_object
-
+    
 
 resource_fields:
   - field_name: url

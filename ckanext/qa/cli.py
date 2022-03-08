@@ -1,5 +1,6 @@
 import click
 
+from ckanext.qa.qa import QaTaskRunner
 from ckanext.qa.qa_no_resources import QaNoResourcesTask
 
 @click.group()
@@ -8,7 +9,14 @@ def qa():
 
 @click.command()
 def run():
-    QaNoResourcesTask().run()
+    """
+    Runs all tasks over all packages
+    
+    Run using `ckan qa run` in the CKAN container
+    """
+    tasks = [ QaNoResourcesTask ]
+    runner = QaTaskRunner(tasks)
+    runner.run()
 
 qa.add_command(run)
 

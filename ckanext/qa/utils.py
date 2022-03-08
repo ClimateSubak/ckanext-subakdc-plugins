@@ -1,11 +1,8 @@
+import logging
+
 import ckan.plugins.toolkit as tk
 
-def should_patch_entity(qa, key, value):
-    """
-    Checks whether key/value exists within given qa dict
-    If not, returns True
-    """
-    return not (key in qa and qa[key] == value)
+log = logging.getLogger(__name__)
     
 def get_all_pkgs():
     """
@@ -27,3 +24,13 @@ def get_all_pkgs():
             break
         
     return all_pkgs
+
+def get_qa_properties(pkg):
+    """
+    Read, decode and return the JSON qa dict on the package model
+    """
+    qa = {}
+    if 'subak_qa' in pkg and pkg['subak_qa'] is not None:
+        qa = pkg['subak_qa']
+        
+    return qa
