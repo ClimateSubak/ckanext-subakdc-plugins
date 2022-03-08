@@ -8,6 +8,7 @@ Custom plugins for the Subak Data Catalogue
 
 - **schema** - Customises the CKAN dataset and resource schema to enable useful filters and more information for searching datasets
 
+- **qa** - Add various QA tasks that can be reported on (via the ckanext-report plugin)
 ## Requirements
 None
 
