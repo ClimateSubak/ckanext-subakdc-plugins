@@ -277,7 +277,7 @@ resource_fields:
 
   - field_name: name
     label: Name
-    required: true
+    required: false
     display_property: dct:title
     form_snippet: text.html
     form_placeholder: eg. 2021 UK Wholesale Electricity Prices
