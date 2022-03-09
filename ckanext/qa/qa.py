@@ -53,16 +53,12 @@ class QaTaskRunner():
         
         # Get the current QA properties
         qa = get_qa_properties(pkg)
-        log.debug(pkg)
-        log.debug(qa)
         
         # Clone qa properties and evaluate the package against all the qa tasks,
         new_qa = qa.copy()
         try:
             for task in self.tasks:
                 new_qa[task.qa_property_name] = task.evaluate(pkg)
-            log.debug(new_qa)
-            log.debug(qa != new_qa)
         except:
             log.error(f"Could not evaluate package against all tasks in run_on_single_package: {pkg['name']}, {e}")
         
