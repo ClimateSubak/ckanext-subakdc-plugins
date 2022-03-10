@@ -89,22 +89,34 @@ class FreshnessPlugin(p.SingletonPlugin):
         '''
         resources = pkg_dict['resources']
         
-        # No resources -> don't provide a freshness score
+        # No resources -> evaluate False
         if len(resources) < 1:
             return pkg_dict
         
-        # Find and sort the last modified dates for all dataset resources
+        # Find the last_modified (or created) datetimes for each resources in the package
         last_modified_dts = []
         for res in resources:
+            dt = None
+            datetime_format = "%Y-%m-%dT%H:%M:%S"
             if 'last_modified' in res and res['last_modified'] is not None:
                 try:
-                    date_format = "%Y-%m-%dT%H:%M:%S.%f"
-                    dt = datetime.strptime(res['last_modified'], date_format)
-                    last_modified_dts.append(dt)
-                except:
-                    # Skip resources whose last modified property is empty or cannot be parsed using date_format
-                    pass
+                    lm = res['last_modified'].split('.')[0] # Ignore milliseconds
+                    dt = datetime.strptime(lm, datetime_format)
+                except ValueError as e:
+                    log.error(f"Cannot parse resource last_modified datetime in QaStaleTask: {e}")
+                    
+            else:
+                try:
+                    created = res['created'].split('.')[0] # Ignore milliseconds
+                    dt = datetime.strptime(created, datetime_format)
+                except ValueError as e:
+                        log.error(f"Cannot parse resource created datetime in QaStaleTask: {e}")
+            
+            if dt is not None:                 
+                last_modified_dts.append(dt)
         
+        # If at least one datetime is found and the most recent datetime is older than threshold,
+        # then evaluate as True
         if len(last_modified_dts) >= 1:
             last_modified_dts = sorted(last_modified_dts, reverse=True)
             pkg_dict['freshness_score'] = freshness_score(last_modified_dts)
