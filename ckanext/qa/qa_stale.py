@@ -1,7 +1,8 @@
 from datetime import datetime
 import logging
+import math
 
-from ckanext.qa.interfaces import IQaTask, IQaReport, IQaAction
+from ckanext.qa.interfaces import IQaTask, IQaReport
 
 log = logging.getLogger(__name__)
 
@@ -93,7 +94,7 @@ class QaStaleReport(IQaReport):
     
 qa_stale_report_info = {
     'name': 'stale-datasets',
-    'description': f"This report lists stale datasets where the newest resource was added/updated more than {QA_STALESNESS_THRESHOLD} days ago",
+    'description': f"This report lists stale datasets where the newest resource was added/updated more than {math.ceil(QA_STALESNESS_THRESHOLD / 365)} years ago",
     'option_defaults': None,
     'option_combinations': None,
     'generate': QaStaleReport.generate,
