@@ -26,7 +26,7 @@ class QaStaleTask(IQaTask):
             if len(resources) < 1:
                 return { 'is_stale': False}
             
-            # Find the last_modified (or created) datetimes for each resources in the package
+            # Find the last_modified (or created) datetimes for each resource in the package
             last_modified_dts = []
             for res in resources:
                 dt = None

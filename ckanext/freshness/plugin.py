@@ -89,11 +89,11 @@ class FreshnessPlugin(p.SingletonPlugin):
         '''
         resources = pkg_dict['resources']
         
-        # No resources -> evaluate False
+        # No resources -> don't provide a freshness score
         if len(resources) < 1:
             return pkg_dict
         
-        # Find the last_modified (or created) datetimes for each resources in the package
+        # Find the last_modified (or created) datetimes for each resource in the package
         last_modified_dts = []
         for res in resources:
             dt = None
@@ -115,8 +115,6 @@ class FreshnessPlugin(p.SingletonPlugin):
             if dt is not None:                 
                 last_modified_dts.append(dt)
         
-        # If at least one datetime is found and the most recent datetime is older than threshold,
-        # then evaluate as True
         if len(last_modified_dts) >= 1:
             last_modified_dts = sorted(last_modified_dts, reverse=True)
             pkg_dict['freshness_score'] = freshness_score(last_modified_dts)
