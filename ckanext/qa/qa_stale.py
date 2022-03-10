@@ -23,7 +23,7 @@ class QaStaleTask(IQaTask):
         
             # No resources -> evaluate False
             if len(resources) < 1:
-                return False
+                return { 'is_stale': False}
             
             # Find the last_modified (or created) datetimes for each resources in the package
             last_modified_dts = []
@@ -54,29 +54,37 @@ class QaStaleTask(IQaTask):
                 age = (datetime.now() - last_modified_dts[0]).days
                 
                 if age > QA_STALESNESS_THRESHOLD:
-                    # return { 'is_stale': True, 'age': age }
-                    return True
+                    return { 'is_stale': True, 'age': age }
             
-            return False
+            return { 'is_stale': False }
                 
         except Exception as e:
             log.error(f"Could not evaluate pkg in QaStaleTask: {e}")
-            return False
+            return { 'is_stale': False }
             
             
 class QaStaleReport(IQaReport):
     @classmethod
     def generate(cls):
        fields = ['id', 'title', 'num_resources']
-       return cls.build(QA_PROPERTY_NAME, fields)
+       computed_fields = { 'age': cls.get_age}
+       
+       report = cls.build(QA_PROPERTY_NAME, fields, computed_fields)
+       
+       report['table'].sort(key=lambda x: x['age'], reverse=True)
+       return report
+   
+    @classmethod
+    def get_age(cls, pkg):
+        try:
+            return pkg['subak_qa'][QA_PROPERTY_NAME]['age']
+        except ValueError:
+            return None
     
     @classmethod
     def should_show_in_report(cls, value):
-        # Only show in report if value is set to true
-        if value is None:
-            return False
-        else:
-            return value
+        # Only show in report if value `is_stale` item is set to true
+        return value.get('is_stale', False)
         
     @classmethod
     def get_qa_actions(cls):
@@ -85,7 +93,7 @@ class QaStaleReport(IQaReport):
     
 qa_stale_report_info = {
     'name': 'stale-datasets',
-    'description': 'Stale datasets',
+    'description': f"This report lists stale datasets where the newest resource was added/updated more than {QA_STALESNESS_THRESHOLD} days ago",
     'option_defaults': None,
     'option_combinations': None,
     'generate': QaStaleReport.generate,
